@@ -1,0 +1,262 @@
+/* PAGE BACKGROUND */
+.notes-page{
+background:#0b0b12;
+min-height:100vh;
+color:white;
+padding-bottom:40px;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.notes-wrapper{
+width:90%;
+margin:auto;
+background:#101018;
+border:1px solid #26263a;
+border-radius:20px;
+padding:40px;
+box-shadow:
+0 0 10px rgba(124,92,255,0.2),
+0 0 25px rgba(124,92,255,0.15);
+transition:0.3s;
+}
+.notes-wrapper:hover{
+box-shadow:
+0 0 20px rgba(124,92,255,0.35),
+0 0 50px rgba(124,92,255,0.25);
+}
+
+
+/* TABS */
+.notes-tabs{
+display:flex;
+justify-content:center;
+gap:14px;
+margin:30px 0;
+}
+
+.tab{
+background:#171722;
+border:none;
+color:white;
+padding:10px 26px;
+border-radius:12px;
+cursor:pointer;
+font-size:15px;
+font-weight:500;
+transition:0.2s ease;
+}
+
+.tab:hover{
+transform:translateY(-2px);
+}
+
+.tab.active{
+background:#7c5cff;
+}
+
+
+
+/* -------------------- */
+/* MAIN LAYOUT */
+/* -------------------- */
+
+.notes-layout{
+display:grid;
+grid-template-columns: 420px 1fr;
+gap:30px;
+padding:40px 70px;
+align-items:start;
+}
+
+.notes-left{
+display:flex;
+flex-direction:column;
+gap:30px;
+}
+
+.notes-right{
+display:flex;
+flex-direction:column;
+gap:30px;
+}
+
+
+
+/* -------------------- */
+/* CARDS */
+/* -------------------- */
+
+.notes-card{
+background:#141420;
+border:1px solid #2a2a3b;
+border-radius:18px;
+padding:26px;
+}
+
+.notes-card h3{
+margin-bottom:18px;
+font-size:18px;
+font-weight:600;
+}
+
+
+
+/* -------------------- */
+/* DATE SCROLLER */
+/* -------------------- */
+
+.date-scroller{
+display:flex;
+align-items:center;
+gap:14px;
+overflow-x:auto;
+padding:12px 0;
+scroll-behavior:smooth;
+}
+
+.date-scroller::-webkit-scrollbar{
+display:none;
+}
+
+.date-card{
+min-width:72px;
+text-align:center;
+padding:12px;
+border-radius:12px;
+background:#171722;
+border:1px solid #2a2a3b;
+cursor:pointer;
+transition:0.2s ease;
+}
+
+.date-card:hover{
+border-color:#7c5cff;
+}
+
+.date-card h3{
+margin:6px 0;
+font-size:18px;
+}
+
+
+
+/* -------------------- */
+/* MOOD SELECTOR */
+/* -------------------- */
+
+.mood-container{
+display:grid;
+grid-template-columns: repeat(3,1fr);
+gap:16px;
+}
+
+.mood-card{
+background:#171722;
+border:1px solid #2a2a3b;
+border-radius:14px;
+padding:16px;
+text-align:center;
+cursor:pointer;
+transition:0.2s ease;
+}
+
+.mood-card:hover{
+border-color:#7c5cff;
+}
+
+.mood-card.selected{
+border:2px solid #7c5cff;
+}
+
+.emoji{
+font-size:26px;
+margin-bottom:6px;
+}
+
+
+
+/* -------------------- */
+/* NOTE INPUT */
+/* -------------------- */
+
+.note-input{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.note-input input{
+background:#171722;
+border:1px solid #2a2a3b;
+color:white;
+padding:12px;
+border-radius:10px;
+outline:none;
+font-size:14px;
+}
+
+.note-input textarea{
+background:#171722;
+border:1px solid #2a2a3b;
+color:white;
+padding:12px;
+border-radius:10px;
+height:120px;
+resize:none;
+outline:none;
+font-size:14px;
+}
+
+.note-input button{
+background:#7c5cff;
+border:none;
+padding:14px;
+border-radius:10px;
+color:white;
+cursor:pointer;
+font-weight:500;
+transition:0.2s ease;
+}
+
+.note-input button:hover{
+opacity:0.9;
+}
+
+
+
+/* -------------------- */
+/* DEADLINES (WORK TAB) */
+/* -------------------- */
+
+.deadline-input{
+width:100%;
+padding:12px;
+background:#171722;
+border:1px solid #2a2a3b;
+border-radius:10px;
+color:white;
+margin:12px 0;
+}
+
+.deadline-btn{
+background:#7c5cff;
+border:none;
+padding:12px;
+border-radius:10px;
+color:white;
+cursor:pointer;
+width:100%;
+}
+
+
+
+/* -------------------- */
+/* EMPTY NOTES TEXT */
+/* -------------------- */
+
+.empty-text{
+opacity:0.6;
+text-align:center;
+padding:40px 20px;
+border:1px dashed #2a2a3b;
+border-radius:14px;
+}
