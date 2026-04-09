@@ -23,47 +23,15 @@ function Home() {
         <img src={earth} className="earth" alt="earth" />
         <img src={astronaut} className="astronaut" alt="astronaut" />
 
-        {/* LEFT PLANETS */}
-        <img
-          src={mercury}
-          alt="mercury"
-          className="planet left p1"
-          onClick={() => navigate("/todo")}
-        />
+        {/* LEFT*/}
+        <img src={mercury} alt="mercury" className="planet left p1"/>
+        <img src={venus} alt="venus" className="planet left p2"/>
+        <img src={sun} alt="sun" className="planet left p3" />
 
-        <img
-          src={venus}
-          alt="venus"
-          className="planet left p2"
-          onClick={() => navigate("/notes")}
-        />
-
-        <img
-          src={sun}
-          alt="sun"
-          className="planet left p3"
-          onClick={() => navigate("/weekly")}
-        />
-
-        {/* RIGHT PLANETS */}
-        <img
-          src={jupiter}
-          alt="jupiter"
-          className="planet right p4"
-          onClick={() => navigate("/habit")}
-        />
-
-        <img
-          src={neptune}
-          alt="neptune"
-          className="planet right p5"
-        />
-
-        <img
-          src={uranus}
-          alt="uranus"
-          className="planet right p6"
-        />
+        {/* RIGHT*/}
+        <img src={jupiter} alt="jupiter" className="planet right p4"/>
+        <img src={neptune} alt="neptune" className="planet right p5"/>  
+        <img src={uranus}  alt="uranus"  className="planet right p6"/>
 
       </div>
     </div>

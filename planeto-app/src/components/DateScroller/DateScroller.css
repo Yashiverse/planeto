@@ -1,0 +1,38 @@
+.date-scroller {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.date-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.date-card {
+  min-width: 70px;
+  flex-shrink: 0;
+
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+
+  background: rgba(255,255,255,0.03);
+  transition: 0.2s;
+  opacity: 0.6;
+}
+
+.date-card:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.date-card.active {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  opacity: 1;
+  box-shadow: 0 0 15px rgba(108, 92, 231, 0.6);
+}

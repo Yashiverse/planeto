@@ -1,21 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const NoteInput = () => {
+const NoteInput = ({ fetchNotes , selectedMood }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!title && !content) return;
+    console.log("Selected Mood:", selectedMood);
+    try {
+      await axios.post("http://localhost:5000/api/notes", {
+        title,
+        content,
+        date: new Date().toLocaleDateString(),
+        mood: selectedMood
+      });
 
-    console.log("Note Created:", title, content);
-
-    setTitle("");
-    setContent("");
+      setTitle("");
+      setContent("");
+      fetchNotes();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div className="note-input">
-
       <input
         type="text"
         placeholder="Note title"
@@ -30,7 +40,6 @@ const NoteInput = () => {
       />
 
       <button onClick={handleCreate}>Create Note</button>
-
     </div>
   );
 };

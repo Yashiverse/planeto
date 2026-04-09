@@ -1,0 +1,42 @@
+import React from "react";
+import defaultAvatar from "../../assets/default.png";
+import overviewIcon from "../../assets/overview.svg";
+import settingsIcon from "../../assets/settings.svg";
+
+const Sidebar = ({ user }) => {
+  return (
+    <div className="sidebar">
+
+      {/* TOP USER PREVIEW */}
+      <div className="sidebar-top">
+        <img src={defaultAvatar} alt="profile" className="sidebar-avatar" />
+
+        <h3 className="sidebar-name">
+          {user.name || "Your Name"}
+        </h3>
+
+        <p className="sidebar-username">
+          {user.username || "@username"}
+        </p>
+      </div>
+
+      {/* MENU */}
+      <div className="sidebar-menu">
+
+        <div className="menu-item active">
+          <img src={overviewIcon} alt="overview" className="icon-3d" />
+          <span>Overview</span>
+        </div>
+
+        <div className="menu-item">
+          <img src={settingsIcon} alt="settings" className="icon-3d" />
+          <span>Settings</span>
+        </div>
+
+      </div>
+
+    </div>
+  );
+};
+
+export default Sidebar;

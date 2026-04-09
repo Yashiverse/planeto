@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./pages.css";
 
 function Todo() {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+    console.log(currentUser._id);
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
 
-  // GET all todos from backend
+  // GET all tasks on component mount
   useEffect(() => {
-    fetch("http://localhost:5000/todos")
+    fetch("http://localhost:5000/api/todos")
       .then(res => res.json())
       .then(data => setTasks(data));
   }, []);
@@ -16,7 +18,7 @@ function Todo() {
     if (e) e.preventDefault();
     if (input.trim() === "") return;
 
-    const res = await fetch("http://localhost:5000/todos", {
+    const res = await fetch("http://localhost:5000/api/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -31,7 +33,7 @@ function Todo() {
   };
 
   const deleteTask = async (id) => {
-    await fetch(`http://localhost:5000/todos/${id}`, {
+    await fetch(`http://localhost:5000/api/todos/${id}`, {
       method: "DELETE"
     });
 

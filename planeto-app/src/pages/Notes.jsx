@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Notes.css";
+import axios from "axios";
 
-import NotesTabs from "../components/NotesTabs";
-import DateScroller from "../components/DateScroller";
-import MoodSelector from "../components/MoodSelector";
-import NoteInput from "../components/NoteInput";
-import NotesList from "../components/NotesList";
+import NotesTabs from "../components/Notes/NotesTabs";
+import MoodSelector from "../components/Notes/MoodSelector";
+import NoteInput from "../components/Notes/NoteInput";
+import NotesList from "../components/Notes/NotesList";
+import DateScroller from "../components/DateScroller/DateScroller";
 
 const Notes = () => {
-
+  const currentUser = JSON.parse(localStorage.getItem("user"));
   const [activeTab, setActiveTab] = useState("personal");
+  const [notes, setNotes] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedMood, setSelectedMood] = useState("");
+
+  const fetchNotes = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/notes");
+      setNotes(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   return (
     <div className="notes-page">
@@ -18,9 +35,7 @@ const Notes = () => {
 
       <div className="notes-wrapper">
 
-        {/* PERSONAL TAB */}
         {activeTab === "personal" && (
-
           <div className="notes-layout">
 
             <div className="notes-left">
@@ -32,7 +47,10 @@ const Notes = () => {
 
               <div className="notes-card">
                 <h3>How are you feeling?</h3>
-                <MoodSelector />
+                <MoodSelector 
+                  selectedMood={selectedMood}
+                  setSelectedMood={setSelectedMood}
+                />
               </div>
 
             </div>
@@ -41,29 +59,30 @@ const Notes = () => {
 
               <div className="notes-card">
                 <h3>Notes for Today</h3>
-                <NoteInput />
+                <NoteInput 
+                  fetchNotes={fetchNotes}
+                  selectedMood={selectedMood}
+                />
               </div>
 
               <div className="notes-card">
-                <NotesList />
+                <NotesList 
+                  notes={notes}
+                  fetchNotes={fetchNotes}
+                />
               </div>
 
             </div>
 
           </div>
-
         )}
 
-
-        {/* WORK TAB */}
         {activeTab === "work" && (
-
           <div className="notes-layout">
 
             <div className="notes-left">
 
               <div className="notes-card">
-
                 <h3>Upcoming Deadlines</h3>
 
                 <input
@@ -76,27 +95,30 @@ const Notes = () => {
                 <button className="deadline-btn">
                   + Add Deadline
                 </button>
-
               </div>
 
             </div>
-
 
             <div className="notes-right">
 
               <div className="notes-card">
                 <h3>Work Notes</h3>
-                <NoteInput />
+                <NoteInput 
+                  fetchNotes={fetchNotes}
+                  selectedMood={selectedMood}
+                />
               </div>
 
               <div className="notes-card">
-                <p className="empty-text">No work notes yet</p>
+                <NotesList 
+                  notes={notes}
+                  fetchNotes={fetchNotes}
+                />
               </div>
 
             </div>
 
           </div>
-
         )}
 
       </div>

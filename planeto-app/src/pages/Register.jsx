@@ -8,6 +8,7 @@ function Register() {
 
   const [formData, setFormData] = useState({
     name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: ""
@@ -20,7 +21,7 @@ function Register() {
     });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -28,11 +29,37 @@ function Register() {
       return;
     }
 
-    console.log("Register Data:", formData);
+    try {
+      const userData = {
+        name: formData.name,
+        username: formData.username, // ✅ now from input
+        email: formData.email,
+        password: formData.password,
+        dob: ""
+      };
 
-    // future API call here
+      const res = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      });
 
-    navigate("/login");
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("user", JSON.stringify(data));
+
+        navigate("/");
+      } else {
+        alert(data.error || "Registration failed");
+      }
+
+    } catch (err) {
+      console.log(err);
+      alert("Server error 💀");
+    }
   };
 
   return (
@@ -40,23 +67,69 @@ function Register() {
 
       <div className="register-card">
         <h2 className="register-title">CREATE ACCOUNT</h2>
+
         <form onSubmit={handleRegister}>
 
-          <input className="register-input" type="text"
-            name="name" placeholder="Enter Name" value={formData.name} onChange={handleChange} required/>
+          <input
+            className="register-input"
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
 
-          <input className="register-input"  type="email" name="email"
-            placeholder="Enter Email" value={formData.email} onChange={handleChange} required/>
+          {/* 🔥 NEW USERNAME FIELD */}
+          <input
+            className="register-input"
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
 
-          <input className="register-input" type="password" name="password"
-            placeholder="Enter Password" value={formData.password} onChange={handleChange} required/>
+          <input
+            className="register-input"
+            type="email"
+            name="email"
+            placeholder="Enter Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-          <input className="register-input" type="password" name="confirmPassword" placeholder="Confirm Password" 
-            value={formData.confirmPassword}onChange={handleChange}required/>
+          <input
+            className="register-input"
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-          <button className="register-button" type="submit">Register</button>
+          <input
+            className="register-input"
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+          />
+
+          <button className="register-button" type="submit">
+            Register
+          </button>
+
         </form>
-        <p className="register-redirect">Already have an account?<Link to="/login"> Login</Link></p>
+
+        <p className="register-redirect">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
 
     </div>
