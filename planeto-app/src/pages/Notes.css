@@ -1,15 +1,15 @@
 /* PAGE BACKGROUND */
 .notes-page{
-background:#0b0b12;
 min-height:100vh;
 color:white;
 padding-bottom:40px;
-font-family: orbitron, sans-serif;
+font-family: "Talina", sans-serif;
+margin-top: 95px;
+
 }
 .notes-wrapper{
-width:90%;
-margin:auto;
-background:#101018;
+width:85%;
+margin-left: 120px;
 border:1px solid #26263a;
 border-radius:20px;
 padding:40px;
@@ -24,8 +24,6 @@ box-shadow:
 0 0 50px rgba(124,92,255,0.25);
 }
 
-
-/* TABS */
 .notes-tabs{
 display:flex;
 justify-content:center;
@@ -53,10 +51,6 @@ transform:translateY(-2px);
 background:#7c5cff;
 }
 
-
-/* MAIN LAYOUT */
-
-
 .notes-layout{
 display:grid;
 grid-template-columns: 420px 1fr;
@@ -76,11 +70,6 @@ display:flex;
 flex-direction:column;
 gap:30px;
 }
-
-
-/* CARDS */
-
-
 .notes-card{
 background:#141420;
 border:1px solid #2a2a3b;
@@ -93,11 +82,6 @@ margin-bottom:18px;
 font-size:18px;
 font-weight:600;
 }
-
-
-/* DATE SCROLLER */
-
-
 .date-scroller{
 display:flex;
 align-items:center;
@@ -131,9 +115,6 @@ margin:6px 0;
 font-size:18px;
 }
 
-
-/* MOOD SELECTOR */
-
 .mood-container{
 display:grid;
 grid-template-columns: repeat(3,1fr);
@@ -162,9 +143,6 @@ border:2px solid #7c5cff;
 font-size:26px;
 margin-bottom:6px;
 }
-
-
-/* NOTE INPUT */
 
 .note-input{
 display:flex;
@@ -209,12 +187,6 @@ transition:0.2s ease;
 opacity:0.9;
 }
 
-
-
-/* -------------------- */
-/* DEADLINES (WORK TAB) */
-/* -------------------- */
-
 .deadline-input{
 width:100%;
 padding:12px;
@@ -235,12 +207,6 @@ cursor:pointer;
 width:100%;
 }
 
-
-
-/* -------------------- */
-/* EMPTY NOTES TEXT */
-/* -------------------- */
-
 .empty-text{
 opacity:0.6;
 text-align:center;
@@ -249,8 +215,6 @@ border:1px dashed #2a2a3b;
 border-radius:14px;
 }
 
-
-/* NOTES LIST*/
 .note-item{
   display:flex;
   justify-content:space-between;
@@ -295,7 +259,7 @@ border-radius:14px;
   font-size:12px;
   color:#8a8aa3;
 }
-/* DELETE BUTTON */
+
 
 .delete-btn{
   background:transparent;

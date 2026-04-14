@@ -6,7 +6,10 @@ const UserInfo = ({ user }) => {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState(user);
+  const [formData, setFormData] = useState({
+    ...user,
+    dob: user.dob || ""
+  });
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -18,10 +21,12 @@ const UserInfo = ({ user }) => {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSave = async () => {
@@ -39,9 +44,9 @@ const UserInfo = ({ user }) => {
       }
     );
 
-    const data = await res.json();
+    await res.json();
 
-    alert("Updated successfully 😤");
+    alert("Updated successfully");
 
     setIsEditing(false);
     window.location.reload();
@@ -56,7 +61,11 @@ const UserInfo = ({ user }) => {
         <div className="info-item">
           <span>Name</span>
           {isEditing ? (
-            <input name="name" value={formData.name} onChange={handleChange} />
+            <input
+              name="name"
+              value={formData.name || ""}
+              onChange={handleChange}
+            />
           ) : (
             <p>{user.name}</p>
           )}
@@ -65,7 +74,11 @@ const UserInfo = ({ user }) => {
         <div className="info-item">
           <span>Username</span>
           {isEditing ? (
-            <input name="username" value={formData.username} onChange={handleChange} />
+            <input
+              name="username"
+              value={formData.username || ""}
+              onChange={handleChange}
+            />
           ) : (
             <p>{user.username}</p>
           )}
@@ -76,10 +89,16 @@ const UserInfo = ({ user }) => {
           <p>{user.email}</p>
         </div>
 
+        {/* 🔥 FIXED DOB FIELD */}
         <div className="info-item">
           <span>DOB</span>
           {isEditing ? (
-            <input name="dob" value={formData.dob} onChange={handleChange} />
+            <input
+              type="date"
+              name="dob"
+              value={formData.dob || ""}
+              onChange={handleChange}
+            />
           ) : (
             <p>{user.dob || "Not set"}</p>
           )}

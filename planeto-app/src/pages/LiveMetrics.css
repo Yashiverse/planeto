@@ -1,11 +1,12 @@
-/*LIVE METRICS CONTAINER*/
+/*LIVE METRICS*/
 .live-metrics-container {
   padding: 100px 40px 40px;
   min-height: 100vh;
   background:#0b0b12;
   color: white;
-  font-family: orbitron;
+  font-family: "Talina", sans-serif;
 }
+
 .live-header {
   display: flex;
   justify-content: space-between;

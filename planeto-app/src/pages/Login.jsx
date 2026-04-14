@@ -3,11 +3,11 @@ import "./pages.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -23,7 +23,6 @@ function Login() {
 
       if (res.ok) {
         localStorage.setItem("user", JSON.stringify(data));
-
         navigate("/");
       } else {
         alert(data.error || "Login failed");
@@ -31,8 +30,13 @@ function Login() {
 
     } catch (err) {
       console.log(err);
-      alert("Server error 💀");
+      alert("Server error");
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
   };
 
   return (
@@ -40,23 +44,39 @@ function Login() {
       <div className="login-card">
         <h2 className="login-title">ON/BOARDING</h2>
 
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form onSubmit={handleSubmit}>
 
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <button onClick={handleLogin}>
-          Launch Login
-        </button>
+          {/* 🔥 PASSWORD WITH TOGGLE */}
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <span
+              className="toggle-eye"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁"}
+            </span>
+          </div>
+
+          <button type="submit">
+            Launch Login
+          </button>
+
+        </form>
 
         <p className="register-text">
           Don't have an account? <Link to="/register"> Register</Link>
