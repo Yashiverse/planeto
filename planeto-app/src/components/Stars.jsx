@@ -4,7 +4,7 @@ const Stars = () => {
   const [stars, setStars] = useState([]);
   const [shootingStars, setShootingStars] = useState([]);
 
-  // ⭐ generate stable stars (no jumping)
+  // stable stars
   useEffect(() => {
     const generatedStars = Array.from({ length: 120 }).map(() => ({
       top: Math.random() * 100 + "%",
@@ -15,7 +15,7 @@ const Stars = () => {
     setStars(generatedStars);
   }, []);
 
-  // ☄️ shooting stars
+  // shooting stars
   useEffect(() => {
     const interval = setInterval(() => {
       const id = Date.now();
@@ -34,7 +34,7 @@ const Stars = () => {
           prev.filter((s) => s.id !== id)
         );
       }, 1000);
-    }, 5000); // balanced timing
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -42,13 +42,11 @@ const Stars = () => {
   return (
     <div className="background-layer">
 
-      {/* 🌌 NEBULA */}
+      {/* NEBULA */}
       <div className="nebula"></div>
 
-      {/* ⭐ STARS + ☄️ SHOOTING STARS */}
+      {/* STARS + SHOOTING STARS */}
       <div className="stars-container">
-
-        {/* ⭐ static stars */}
         {stars.map((s, i) => (
           <div
             key={i}
@@ -60,8 +58,6 @@ const Stars = () => {
             }}
           />
         ))}
-
-        {/* ☄️ shooting stars */}
         {shootingStars.map((s) => (
           <div
             key={s.id}

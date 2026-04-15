@@ -28,8 +28,28 @@ app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
+//upload profile pics
+app.use("/uploads", express.static("uploads"));
 
-// NOTES
+
+//DB CONNECTION
+mongoose
+  .connect(
+    "mongodb+srv://yashiverse:planeto1234@cluster0.mmhx7wm.mongodb.net/planeto?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("MongoDB connected");
+
+    app.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
+  })
+  .catch((err) => console.log(err));
+
+
+
+
+  // NOTES PAGE------------
 app.post("/api/notes", async (req, res) => {
   try {
     console.log("BODY:", req.body);
@@ -54,7 +74,6 @@ app.get("/api/notes", async (req, res) => {
   }
 });
 
-
 // DELETE
 app.delete("/api/notes/:id", async (req, res) => {
   try {
@@ -67,18 +86,3 @@ app.delete("/api/notes/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-
-//DB CONNECTION
-mongoose
-  .connect(
-    "mongodb+srv://yashiverse:planeto1234@cluster0.mmhx7wm.mongodb.net/planeto?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    console.log("MongoDB connected");
-
-    app.listen(5000, () => {
-      console.log("Server running on port 5000");
-    });
-  })
-  .catch((err) => console.log(err));

@@ -17,7 +17,7 @@ body {
    font-family: 'Orbitron', sans-serif; 
 }
 
-/* SIDEBAR */
+/* SIDEBAR-------------------------- */
 .sidebar {
   background: rgba(20,20,40,0.7);
   padding: 20px;
@@ -27,8 +27,6 @@ body {
   flex-direction: column;
   border-right: 1px solid rgba(139, 92, 246, 0.1);
 }
-
-/* SIDEBAR TOP */
 .sidebar-top {
   text-align: center;
   margin-bottom: 30px;
@@ -53,14 +51,12 @@ body {
   font-size: 12px;
 }
 
-/* MENU */
 .sidebar-menu {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
-/* MENU ITEM */
 .menu-item {
   display: flex;
   align-items: center;
@@ -71,7 +67,6 @@ body {
   color: #9CA3AF;
   transition: color 0.2s ease;
 }
-/* ICON */
 .icon-3d {
   width: 24px;
   height: 24px;
@@ -79,45 +74,25 @@ body {
 }
 
 
-/* CENTER */
-.profile-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* FIXED CENTER */
-  gap: 25px;
-  padding: 20px;
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 16px;
+/*PROFILE AVATAR*/
+.avatar-wrapper {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
 }
-
-/* PROFILE CARD */
-.profile-card {
-  background: #12121A;
-  padding: 25px;
-  border-radius: 16px;
-  text-align: center;
-  width: 300px;
-
-  border: 1px solid rgba(139, 92, 246, 0.15);
-  box-shadow: 0 0 25px rgba(139, 92, 246, 0.15);
-  transition: 0.3s;
-}
-
-.profile-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 35px rgba(139, 92, 246, 0.3);
-}
-
 .profile-avatar-main {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: 3px solid #8B5CF6;
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.7);
-  margin-bottom: 12px;
+  margin-bottom: 7px;
+  margin-left: 65px;
+  transition: 0.3s;
+}
+.profile-avatar-main:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 .profile-name {
@@ -130,53 +105,20 @@ body {
   font-size: 13px;
 }
 
-/* LEVEL CARD */
-.level-card {
-  background: rgba(11, 11, 27, 0.7);
-  padding: 20px;
-  border-radius: 16px;
-  width: 300px;
 
-  border: 1px solid rgba(139, 92, 246, 0.15);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
-}
 
-.level-title {
-  color: #E5E7EB;
-  margin-bottom: 10px;
-}
 
-/* PROGRESS */
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #1F1F2A;
-  border-radius: 10px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #8B5CF6, #6D28D9);
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
-}
-
-.progress-text {
-  font-size: 12px;
-  color: #9CA3AF;
-  margin-top: 6px;
-}
-
-/* RIGHT PANEL */
+/* RIGHT PANEL----------------- */
 .user-info {
   background: rgba(20,20,40,0.7);
-  padding: 30px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 16px;
   margin-right: 15px;
   border-left: 1px solid rgba(139, 92, 246, 0.1);
+  gap: 15px;
 }
 .user-info input {
   width: 100%;
@@ -255,4 +197,28 @@ body {
 
 .logout-icon {
   width: 18px;
+}
+
+
+
+
+
+/* CENTER---------------------- */
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.astro-stage h1 {
+  color: #E5E7EB;
+  font-size: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 }

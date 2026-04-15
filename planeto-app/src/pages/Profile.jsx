@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Profile/Sidebar";
-import ProfileCard from "../components/Profile/ProfileCard";
-import LevelCard from "../components/Profile/LevelCard";
 import UserInfo from "../components/Profile/UserInfo";
+import AvatarStage from "../components/Profile/AvatarStage";
 
 import "../components/Profile/profile.css";
 
@@ -10,7 +9,8 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const email = localStorage.getItem("userEmail");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const email = storedUser?.email;
 
     if (!email) {
       console.log("No user logged in");
@@ -36,8 +36,7 @@ const ProfilePage = () => {
 
       {/* CENTER */}
       <div className="profile-main">
-        <ProfileCard user={user} />
-        <LevelCard user={user} />
+        <AvatarStage user={user} />
       </div>
 
       {/* RIGHT */}

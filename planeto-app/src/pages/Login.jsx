@@ -23,6 +23,7 @@ function Login() {
 
       if (res.ok) {
         localStorage.setItem("user", JSON.stringify(data));
+        window.dispatchEvent(new Event("userChanged"));
         navigate("/");
       } else {
         alert(data.error || "Login failed");
@@ -68,13 +69,11 @@ function Login() {
               className="toggle-eye"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "🙈" : "👁"}
+              {showPassword ? "🙈" : "🐵"}
             </span>
           </div>
 
-          <button type="submit">
-            Launch Login
-          </button>
+          <button type="submit">LAUNCH!</button>
 
         </form>
 

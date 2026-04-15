@@ -2,6 +2,42 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
+const path = require("path");
+
+// STORAGE CONFIG
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
+
+// UPLOAD PROFILE PIC
+router.post("/upload", upload.single("profilePic"), async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+    const imagePath = `/uploads/${req.file.filename}`;
+
+    const user = await User.findOneAndUpdate(
+      { email },
+      { profilePic: imagePath },
+      { new: true }
+    );
+
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // REGISTER
 router.post("/register", async (req, res) => {

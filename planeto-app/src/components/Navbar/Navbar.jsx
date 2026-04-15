@@ -14,15 +14,24 @@ function Navbar() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
+    const updateUser = () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
       setUser(storedUser);
-    }
+    };
+
+    updateUser();
+
+    window.addEventListener("userChanged", updateUser);
+
+    return () => {
+      window.removeEventListener("userChanged", updateUser);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
+    window.dispatchEvent(new Event("userChanged"));
     navigate("/login");
   };
 
@@ -53,8 +62,6 @@ function Navbar() {
         </div>
 
         <div className="nav-right">
-
-          {/* 🔥 CONDITIONAL RENDERING */}
           {user ? (
             <>
               <button 
@@ -78,7 +85,6 @@ function Navbar() {
               Login
             </button>
           )}
-
         </div>
 
       </div>

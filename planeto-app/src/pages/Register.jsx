@@ -69,54 +69,54 @@ function Register() {
 
         <form onSubmit={handleRegister} autoComplete="off">
 
-          {/* NAME */}
           <input
             className="register-input"
             type="text"
             name="name"
             placeholder="Enter Name"
-            value={formData.name || ""}
+            value={formData.name}
             onChange={handleChange}
+            autoComplete="new-password"
           />
 
-          {/* USERNAME */}
           <input
             className="register-input"
             type="text"
             name="username"
             placeholder="Enter Username"
-            value={formData.username || ""}
+            value={formData.username}
             onChange={handleChange}
+            autoComplete="new-password"
           />
 
-          {/* EMAIL */}
           <input
             className="register-input"
             type="email"
             name="email"
             placeholder="Enter Email"
-            value={formData.email || ""}
+            value={formData.email}
             onChange={handleChange}
+            autoComplete="off"
           />
 
-          {/* PASSWORD */}
           <input
             className="register-input"
             type="password"
             name="password"
             placeholder="Enter Password"
-            value={formData.password || ""}
+            value={formData.password}
             onChange={handleChange}
+            autoComplete="new-password"
           />
 
-          {/* CONFIRM PASSWORD */}
           <input
             className="register-input"
             type="password"
             name="confirmPassword"
             placeholder="Confirm Password"
-            value={formData.confirmPassword || ""}
+            value={formData.confirmPassword}
             onChange={handleChange}
+            autoComplete="new-password"
           />
 
           <button className="register-button" type="submit">

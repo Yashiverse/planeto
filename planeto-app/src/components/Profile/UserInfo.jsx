@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoutIcon from "../../assets/log-out.svg";
+import ProfileCard from "./ProfileCard";
 
 const UserInfo = ({ user }) => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const UserInfo = ({ user }) => {
 
   return (
     <div className="user-info">
+      <ProfileCard user={user} />
 
       <div className="user-info-top">
         <h2 className="info-title">User Info</h2>
