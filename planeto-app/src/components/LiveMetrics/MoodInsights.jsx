@@ -17,7 +17,7 @@ const MoodInsights = ({ notes = [] }) => {
       <h3 className="card-title">Mood Insights</h3>
 
       {moods.length === 0 ? (
-        <p>No mood data yet 😴</p>
+        <p>No mood data yet</p>
       ) : (
         <div className="mood-list">
           {moods.map(([mood, count], index) => (

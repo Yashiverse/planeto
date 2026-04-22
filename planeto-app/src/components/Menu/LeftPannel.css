@@ -1,41 +1,49 @@
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(6px);
+  inset: 0;
+  background: rgba(4, 3, 12, 0.42);
+  backdrop-filter: blur(8px);
   z-index: 998;
 }
 
 .left-panel {
   position: fixed;
-  top: 0;
-  left: -380px;
-  width: 380px;
-  height: 100vh;
-  padding: 30px 24px;
-  background: rgba(16, 16, 31, 0.65);
-  backdrop-filter: blur(20px);
-  color: white;
-  transition: left 0.3s ease-in-out;
+  top: 18px;
+  font-family: poppins, sans-serif;
+  left: -360px;
+  width: 330px;
+  height: calc(100vh - 36px);
+  padding: 18px;
+  border-radius: 28px;
   z-index: 999;
-  border-right: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6);
-  font-family: orbitron, sans-serif;
   overflow: hidden;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 10, 34, 0.379),
+      rgba(28, 18, 48, 0.68),
+      rgba(12, 8, 24, 0.511)
+    );
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  transition: left 0.32s ease;
 }
 
 .left-panel::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(124,92,255,0.2), transparent),
-              radial-gradient(circle at 80% 70%, rgba(0,212,255,0.15), transparent);
-
-  filter: blur(60px);
-  opacity: 0.6;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(168, 85, 247, 0.16), transparent 24%),
+    radial-gradient(circle at 78% 72%, rgba(59, 130, 246, 0.12), transparent 22%);
+  filter: blur(40px);
   z-index: -1;
 }
 
@@ -43,60 +51,101 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: radial-gradient(rgba(255,255,255,0.22) 0.7px, transparent 0.7px);
+  background-size: 34px 34px;
   opacity: 0.04;
   z-index: -1;
 }
 
 .left-panel.open {
-  left: 0;
+  left: 20px;
 }
 
 .panel-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 4px 4px 10px;
 }
 
 .panel-header h2 {
-  font-size: 20px;
-  font-weight: 600;
+  margin: 0;
+  font-family: orbitron, sans-serif;
+  font-size: 28px;
   letter-spacing: 2px;
-  color: #e0e7ff;
+  font-weight: 700;
+  color: #f8f7ff;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.12),
+    0 0 20px rgba(168,85,247,0.14);
 }
 
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .menu-item {
   display: flex;
   align-items: center;
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  min-height: 62px;
+  padding: 0 18px;
+  border-radius: 18px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  color: #cbd5f5;
-  transition: all 0.25s ease;
+
+  color: #ebe9ff;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.24s ease;
 }
 
 .menu-item:hover {
-  background: rgba(124,92,255,0.2);
-  border-color: rgba(124,92,255,0.4);
-
-  box-shadow: 0 0 12px rgba(124,92,255,0.5);
-
   transform: translateX(6px);
+  background: rgba(168, 85, 247, 0.14);
+  border-color: rgba(168, 85, 247, 0.24);
+  box-shadow:
+    0 10px 22px rgba(168, 85, 247, 0.14),
+    inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .menu-item.active {
-  background: rgba(124,92,255,0.3);
-  box-shadow: 0 0 15px rgba(124,92,255,0.8);
+  background: linear-gradient(
+    135deg,
+    rgba(124, 58, 237, 0.30),
+    rgba(168, 85, 247, 0.18)
+  );
+  border-color: rgba(196, 181, 253, 0.24);
+  box-shadow:
+    0 12px 28px rgba(124, 58, 237, 0.20),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+@media (max-width: 768px) {
+  .left-panel {
+    top: 10px;
+    left: -320px;
+    width: 300px;
+    height: calc(100vh - 20px);
+    border-radius: 24px;
+    padding: 14px;
+  }
+
+  .left-panel.open {
+    left: 10px;
+  }
+
+  .panel-header h2 {
+    font-size: 22px;
+  }
+
+  .menu-item {
+    min-height: 56px;
+    font-size: 15px;
+  }
 }

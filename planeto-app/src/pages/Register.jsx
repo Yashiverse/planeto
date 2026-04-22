@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./pages.css";
+import "./auth.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -10,25 +10,38 @@ function Register() {
     username: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    accepted: false
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: type === "checkbox" ? checked : value
     }));
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const { name, username, email, password, confirmPassword } = formData;
+    const {
+      name,
+      username,
+      email,
+      password,
+      confirmPassword,
+      accepted
+    } = formData;
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      alert("Passwords do not match");
+      return;
+    }
+
+    if (!accepted) {
+      alert("Please accept terms first");
       return;
     }
 
@@ -50,12 +63,13 @@ function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        window.dispatchEvent(new Event("userChanged"));
         navigate("/");
       } else {
         alert(data.error || "Registration failed");
       }
-
     } catch (err) {
       console.log(err);
       alert("Server error");
@@ -65,64 +79,91 @@ function Register() {
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2 className="register-title">CREATE ACCOUNT</h2>
+        <h2 className="register-title">ON/BOARDING</h2>
 
-        <form onSubmit={handleRegister} autoComplete="off">
+        <div className="auth-social">
+          <button type="button" className="social-btn">Google</button>
+          <button type="button" className="social-btn">Apple</button>
+        </div>
+
+        <div className="auth-divider">OR REGISTER WITH EMAIL</div>
+
+        <form onSubmit={handleRegister}>
+          <label className="field-label">Full Name</label>
 
           <input
             className="register-input"
             type="text"
             name="name"
-            placeholder="Enter Name"
+            placeholder="Enter full name"
             value={formData.name}
             onChange={handleChange}
-            autoComplete="new-password"
+            required
           />
+
+          <label className="field-label">Username</label>
 
           <input
             className="register-input"
             type="text"
             name="username"
-            placeholder="Enter Username"
+            placeholder="Choose username"
             value={formData.username}
             onChange={handleChange}
-            autoComplete="new-password"
+            required
           />
+
+          <label className="field-label">Email</label>
 
           <input
             className="register-input"
             type="email"
             name="email"
-            placeholder="Enter Email"
+            placeholder="Enter email"
             value={formData.email}
             onChange={handleChange}
-            autoComplete="off"
+            required
           />
+
+          <label className="field-label">Password</label>
 
           <input
             className="register-input"
             type="password"
             name="password"
-            placeholder="Enter Password"
+            placeholder="Create password"
             value={formData.password}
             onChange={handleChange}
-            autoComplete="new-password"
+            required
           />
+
+          <label className="field-label">Confirm Password</label>
 
           <input
             className="register-input"
             type="password"
             name="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder="Confirm password"
             value={formData.confirmPassword}
             onChange={handleChange}
-            autoComplete="new-password"
+            required
           />
 
-          <button className="register-button" type="submit">
-            Register
-          </button>
+          <label className="terms-row">
+            <input
+              type="checkbox"
+              name="accepted"
+              checked={formData.accepted}
+              onChange={handleChange}
+            />
+            <span>
+              I agree to the Terms of Service and Privacy Policy
+            </span>
+          </label>
 
+          <button className="register-button" type="submit">
+            CREATE ACCOUNT
+          </button>
         </form>
 
         <p className="register-redirect">

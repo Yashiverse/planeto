@@ -24,8 +24,8 @@ const Stars = () => {
         ...prev,
         {
           id,
-          top: Math.random() * 50 + "%",
-          left: Math.random() * 100 + "%",
+          top: Math.random()*50 + "%",
+          left: Math.random()*100 + "%",
         },
       ]);
 

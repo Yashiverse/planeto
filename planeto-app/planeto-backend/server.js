@@ -1,11 +1,15 @@
-import express from "express";
+import express, { json } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
 import habitRoutes from "./routes/habitRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import Note from "./models/Note.js";
+import noteRoutes from "./routes/noteRoutes.js";
+import aiRoutes from "./routes/aiRoutes.js";
+
+import dotenv from "dotenv";
+dotenv.config();  
 
 const app = express();
 
@@ -13,7 +17,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//  ROUTES 
+//ai
+app.use("/api/ai", aiRoutes);
+
 // habits
 app.use("/api/habits", habitRoutes);
 
@@ -22,6 +28,9 @@ app.use("/api/todos", todoRoutes);
 
 // users 
 app.use("/api/users", userRoutes);
+
+// notes
+app.use("/api/notes", noteRoutes);
 
 // test route
 app.get("/", (req, res) => {
@@ -46,43 +55,3 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-
-
-
-  // NOTES PAGE------------
-app.post("/api/notes", async (req, res) => {
-  try {
-    console.log("BODY:", req.body);
-    const { title, content, date, mood } = req.body;
-
-    const newNote = new Note({ title, content, date, mood });
-    await newNote.save();
-
-    res.json({ message: "Note saved" });
-  } catch (err) {
-    console.log("ERROR:", err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.get("/api/notes", async (req, res) => {
-  try {
-    const notes = await Note.find().sort({ _id: -1 });
-    res.json(notes);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// DELETE
-app.delete("/api/notes/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    await Note.findByIdAndDelete(id);
-
-    res.json({ message: "Note deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});

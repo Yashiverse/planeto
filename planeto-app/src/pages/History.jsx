@@ -41,7 +41,7 @@ const History = () => {
 
   const days = getDaysInMonth();
 
-  // DELETE FOREVER
+  // HARD DELETE 
   const deleteForever = async (id) => {
     await axios.delete(`${API}/${id}`);
     setHabits(prev => prev.filter(h => h._id !== id));

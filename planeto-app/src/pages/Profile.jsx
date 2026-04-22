@@ -9,39 +9,41 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const email = storedUser?.email;
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-    if (!email) {
-      console.log("No user logged in");
-      return;
-    }
+        if (!token) return;
 
-    fetch(`http://localhost:5000/api/users/profile?email=${email}`)
-      .then((res) => res.json())
-      .then((data) => setUser(data))
-      .catch((err) => console.log(err));
+        const res = await fetch("http://localhost:5000/api/users/profile", {
+          headers: {
+            Authorization: token
+          }
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch profile");
+
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProfile();
   }, []);
 
-  // loading
   if (!user) {
-    return <div style={{ color: "white" }}>Loading...</div>;
+    return <div className="profile-page">Loading...</div>;
   }
 
   return (
     <div className="profile-page">
-
-      {/* LEFT SIDEBAR */}
       <Sidebar user={user} />
-
-      {/* CENTER */}
       <div className="profile-main">
         <AvatarStage user={user} />
       </div>
-
-      {/* RIGHT */}
       <UserInfo user={user} />
-
     </div>
   );
 };

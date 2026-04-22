@@ -1,286 +1,171 @@
-/* PAGE BACKGROUND */
 .notes-page{
-min-height:100vh;
-color:white;
-padding-bottom:40px;
-font-family: "Talina", sans-serif;
-margin-top: 95px;
-
+  min-height:100vh;
+  padding:120px 24px 40px;
 }
+
 .notes-wrapper{
-width:85%;
-margin-left: 120px;
-border:1px solid #26263a;
-border-radius:20px;
-padding:40px;
-box-shadow:
-0 0 10px rgba(124,92,255,0.2),
-0 0 25px rgba(124,92,255,0.15);
-transition:0.3s;
-}
-.notes-wrapper:hover{
-box-shadow:
-0 0 20px rgba(124,92,255,0.35),
-0 0 50px rgba(124,92,255,0.25);
-}
-
-.notes-tabs{
-display:flex;
-justify-content:center;
-gap:14px;
-margin:30px 0;
-}
-
-.tab{
-background:#171722;
-border:none;
-color:white;
-padding:10px 26px;
-border-radius:12px;
-cursor:pointer;
-font-size:15px;
-font-weight:500;
-transition:0.2s ease;
-}
-
-.tab:hover{
-transform:translateY(-2px);
-}
-
-.tab.active{
-background:#7c5cff;
+  max-width:1450px;
+  margin:0 auto;
 }
 
 .notes-layout{
-display:grid;
-grid-template-columns: 420px 1fr;
-gap:30px;
-padding:40px 70px;
-align-items:start;
+  display:grid;
+  grid-template-columns:1fr 430px;
+  gap:20px;
 }
 
-.notes-left{
-display:flex;
-flex-direction:column;
-gap:30px;
-}
-
+.notes-left,
 .notes-right{
-display:flex;
-flex-direction:column;
-gap:30px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
+
 .notes-card{
-background:#141420;
-border:1px solid #2a2a3b;
-border-radius:18px;
-padding:26px;
+  background:rgba(12,12,24,.78);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:24px;
+  padding:22px;
+  backdrop-filter:blur(16px);
 }
 
 .notes-card h3{
-margin-bottom:18px;
-font-size:18px;
-font-weight:600;
-}
-.date-scroller{
-display:flex;
-align-items:center;
-gap:14px;
-overflow-x:auto;
-padding:12px 0;
-scroll-behavior:smooth;
+  color:#fff;
+  font-size:30px;
+  margin-bottom:18px;
 }
 
-.date-scroller::-webkit-scrollbar{
-display:none;
+.notes-left .notes-card{
+  min-height:720px;
 }
 
-.date-card{
-min-width:72px;
-text-align:center;
-padding:12px;
-border-radius:12px;
-background:#171722;
-border:1px solid #2a2a3b;
-cursor:pointer;
-transition:0.2s ease;
+.notes-left form{
+  height:100%;
+  display:flex;
+  flex-direction:column;
 }
 
-.date-card:hover{
-border-color:#7c5cff;
+.notes-left input,
+.notes-left textarea{
+  width:100%;
+  border:none;
+  outline:none;
+  border-radius:16px;
+  padding:14px 16px;
+  background:rgba(255,255,255,.04);
+  color:white;
+  margin-bottom:14px;
 }
 
-.date-card h3{
-margin:6px 0;
-font-size:18px;
+.notes-left textarea{
+  flex:1;
+  resize:none;
+  min-height:520px;
+}
+
+.notes-left button{
+  height:52px;
+  border:none;
+  border-radius:16px;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#24104f,#312e81,#3730a3);
+}
+
+.notes-left button:hover{
+  box-shadow:0 0 18px rgba(67,56,202,.25);
 }
 
 .mood-container{
-display:grid;
-grid-template-columns: repeat(3,1fr);
-gap:16px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
 .mood-card{
-background:#171722;
-border:1px solid #2a2a3b;
-border-radius:14px;
-padding:16px;
-text-align:center;
-cursor:pointer;
-transition:0.2s ease;
-}
-
-.mood-card:hover{
-border-color:#7c5cff;
+  min-height:100px;
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
 }
 
 .mood-card.selected{
-border:2px solid #7c5cff;
+  background:linear-gradient(135deg,#24104f,#312e81);
 }
 
 .emoji{
-font-size:26px;
-margin-bottom:6px;
+  font-size:28px;
+  margin-bottom:6px;
 }
 
-.note-input{
-display:flex;
-flex-direction:column;
-gap:14px;
+.mood-card p{
+  color:white;
+  font-size:14px;
 }
 
-.note-input input{
-background:#171722;
-border:1px solid #2a2a3b;
-color:white;
-padding:12px;
-border-radius:10px;
-outline:none;
-font-size:14px;
-}
-
-.note-input textarea{
-background:#171722;
-border:1px solid #2a2a3b;
-color:white;
-padding:12px;
-border-radius:10px;
-height:120px;
-resize:none;
-outline:none;
-font-size:14px;
-}
-
-.note-input button{
-background:#7c5cff;
-border:none;
-padding:14px;
-border-radius:10px;
-color:white;
-cursor:pointer;
-font-weight:500;
-transition:0.2s ease;
-}
-
-.note-input button:hover{
-opacity:0.9;
-}
-
-.deadline-input{
-width:100%;
-padding:12px;
-background:#171722;
-border:1px solid #2a2a3b;
-border-radius:10px;
-color:white;
-margin:12px 0;
-}
-
-.deadline-btn{
-background:#7c5cff;
-border:none;
-padding:12px;
-border-radius:10px;
-color:white;
-cursor:pointer;
-width:100%;
-}
-
-.empty-text{
-opacity:0.6;
-text-align:center;
-padding:40px 20px;
-border:1px dashed #2a2a3b;
-border-radius:14px;
+.notes-right .notes-card:last-child{
+  min-height:350px;
+  overflow-y:auto;
 }
 
 .note-item{
+  padding:14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+  margin-bottom:12px;
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
-  gap:16px;
-  background:#171722;
-  border:1px solid #2a2a3b;
-  border-radius:14px;
-  animation:fadeIn 0.3s ease;
-  padding:20px;
-  margin-bottom: 18px;
-  transition:0.25s ease;
-  position:relative;
-  overflow:hidden;
-}
-
-.note-item:hover{
-  border-color:#7c5cff;
-  box-shadow:
-    0 0 10px rgba(124,92,255,0.25),
-    0 0 20px rgba(124,92,255,0.15);
-}
-.note-content{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+  gap:12px;
 }
 
 .note-content h3{
   font-size:16px;
-  margin:0;
-  margin-bottom: 6px;
+  color:white;
+  margin-bottom:8px;
 }
 
 .note-content p{
+  color:#d7daf8;
   font-size:14px;
-  color:#cfcfe6;
-  margin:0;
 }
 
 .note-date{
+  color:#8f94c7;
   font-size:12px;
-  color:#8a8aa3;
 }
-
 
 .delete-btn{
-  background:transparent;
+  width:40px;
+  height:40px;
   border:none;
-  color:#ff5c7c;
-  font-size:16px;
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+  color:white;
   cursor:pointer;
-  transition:0.2s ease;
 }
 
-.delete-btn:hover{
-  transform:scale(1.3);
+.empty-text{
+  color:#9ea4d4;
+  text-align:center;
+  padding:24px 0;
 }
 
-@keyframes fadeIn{
-  from{
-    opacity:0;
-    transform:translateY(10px);
+@media(max-width:980px){
+  .notes-layout{
+    grid-template-columns:1fr;
   }
-  to{
-    opacity:1;
-    transform:translateY(0);
+
+  .notes-left .notes-card{
+    min-height:auto;
+  }
+
+  .notes-left textarea{
+    min-height:260px;
   }
 }

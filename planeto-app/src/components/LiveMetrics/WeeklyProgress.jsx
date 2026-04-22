@@ -13,11 +13,9 @@ const WeeklyProgress = ({ habits = [] }) => {
   };
 
   const last7Days = getLast7Days();
-
-  // 👉 total possible = habits × 7 days
   const totalPossible = habits.length * 7;
 
-  // 👉 actual completed
+  //completed task
   let completed = 0;
 
   last7Days.forEach(date => {
@@ -28,7 +26,6 @@ const WeeklyProgress = ({ habits = [] }) => {
     });
   });
 
-  // 👉 percentage
   const progress =
     totalPossible === 0
       ? 0

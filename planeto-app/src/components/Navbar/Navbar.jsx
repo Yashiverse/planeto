@@ -10,13 +10,20 @@ import LeftPanel from "../Menu/LeftPannel";
 
 function Navbar() {
   const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const updateUser = () => {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      setUser(storedUser);
+      const stored = localStorage.getItem("user");
+
+      const parsedUser =
+        stored && stored !== "undefined"
+          ? JSON.parse(stored)
+          : null;
+
+      setUser(parsedUser);
     };
 
     updateUser();
@@ -30,31 +37,35 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
     setUser(null);
+
     window.dispatchEvent(new Event("userChanged"));
+
     navigate("/login");
   };
 
   return (
     <>
-      <div className="navbar">
-
+      <div className={`navbar ${isOpen ? "navbar-shrink" : ""}`}>
         <div className="nav-left">
-          <img 
-            src={chat} 
-            className="threed-icon" 
-            onClick={() => setIsOpen(true)} 
+          <img
+            src={chat}
+            className="threed-icon"
+            onClick={() => setIsOpen(true)}
           />
-          <img 
-            src={star} 
-            className="threed-icon" 
-            onClick={() => navigate("/live-metrics")} 
+
+          <img
+            src={star}
+            className="threed-icon"
+            onClick={() => navigate("/live-metrics")}
           />
         </div>
 
         <div className="nav-center">
-          <h1 
-            className="planeto-logo" 
+          <h1
+            className="planeto-logo"
             onClick={() => navigate("/")}
           >
             PLAN/ETO
@@ -64,32 +75,34 @@ function Navbar() {
         <div className="nav-right">
           {user ? (
             <>
-              <button 
-                className="login-btn" 
+              <button
+                className="login-btn"
                 onClick={handleLogout}
               >
-                Logout
+                ABORT MISSION
               </button>
 
-              <img 
-                src={profile} 
-                className="threed-icon" 
-                onClick={() => navigate("/profile")} 
+              <img
+                src={profile}
+                className="threed-icon"
+                onClick={() => navigate("/profile")}
               />
             </>
           ) : (
-            <button 
-              className="login-btn" 
+            <button
+              className="login-btn"
               onClick={() => navigate("/login")}
             >
-              Login
+              LAUNCH
             </button>
           )}
         </div>
-
       </div>
 
-      <LeftPanel isOpen={isOpen} setIsOpen={setIsOpen} />
+      <LeftPanel
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     </>
   );
 }

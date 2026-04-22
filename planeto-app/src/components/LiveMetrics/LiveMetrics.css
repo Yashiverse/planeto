@@ -2,8 +2,8 @@
 .live-metrics-container {
   padding: 100px 40px 40px;
   min-height: 100vh;
-  background:#0b0b12;
   color: white;
+  margin-top: 18px;
   font-family: "Talina", sans-serif;
 }
 

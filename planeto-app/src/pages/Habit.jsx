@@ -19,7 +19,7 @@ const Habit = () => {
 
   const API = "http://localhost:5000/api/habits";
 
-  // 📅 GET DAYS
+  //  DAYS
   const getDays = () => {
     const days = [];
     const base = new Date(selectedDate);
@@ -40,7 +40,7 @@ const Habit = () => {
 
   const days = getDays();
 
-  // 🔥 FETCH ONLY ACTIVE HABITS
+  // ACTIVE HABITS
   useEffect(() => {
     axios
       .get(`${API}?active=true`)
@@ -58,15 +58,13 @@ const Habit = () => {
       dates: {},
     };
 
-    axios
-      .post(API, newHabit)
+    axios.post(API, newHabit)
       .then((res) => {
-        setHabits((prev) => [...prev, res.data]);
-      })
+        setHabits((prev) => [...prev, res.data]);})
       .catch((err) => console.log(err));
   };
 
-  // 🔥 SOFT DELETE
+  // SOFT DELETE
   const deleteHabit = (id) => {
     axios
       .put(`${API}/${id}`, { isActive: false })

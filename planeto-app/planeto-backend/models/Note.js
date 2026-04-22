@@ -5,6 +5,7 @@ const noteSchema = new mongoose.Schema({
   content: String,
   date: String,
   mood: String,
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
 module.exports = mongoose.model("Note", noteSchema);

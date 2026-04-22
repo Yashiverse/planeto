@@ -14,6 +14,7 @@ const UserInfo = ({ user }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
@@ -30,28 +31,26 @@ const UserInfo = ({ user }) => {
     }));
   };
 
+
+//saved to backend.
   const handleSave = async () => {
-    const currentUser = JSON.parse(localStorage.getItem("user"));
-    const email = currentUser?.email;
-
-    const res = await fetch(
-      `http://localhost:5000/api/users/update?email=${email}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      }
-    );
-
-    await res.json();
-
-    alert("Updated successfully");
-
-    setIsEditing(false);
-    window.location.reload();
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:5000/api/users/update",
+        {
+          method: "PUT",
+          headers: {"Content-Type": "application/json", Authorization: token},
+          body: JSON.stringify(formData)
+        }
+      );
+      await res.json();
+      alert("Updated successfully");
+      setIsEditing(false);
+      window.location.reload();
+    }
+    catch (err) {console.log(err);}
   };
+
 
   return (
     <div className="user-info">
@@ -91,7 +90,7 @@ const UserInfo = ({ user }) => {
           <p>{user.email}</p>
         </div>
 
-        {/* 🔥 FIXED DOB FIELD */}
+        {/* DOB FIELD */}
         <div className="info-item">
           <span>DOB</span>
           {isEditing ? (

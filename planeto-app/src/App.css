@@ -1,3 +1,20 @@
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+
 /* STAR BACKGROUND */
 .stars-container {
   position: fixed;

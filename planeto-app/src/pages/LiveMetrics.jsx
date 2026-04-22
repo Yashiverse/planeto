@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./LiveMetrics.css";
 import axios from "axios";
 
 import Header from "../components/LiveMetrics/Header";
@@ -11,6 +10,8 @@ import MoodInsights from "../components/LiveMetrics/MoodInsights";
 import ActivityGraph from "../components/LiveMetrics/ActivityGraph";
 import InsightPannel from "../components/LiveMetrics/InsightPannel";
 
+import "../components/LiveMetrics/LiveMetrics.css";
+
 const LiveMetrics = () => {
   const [habits, setHabits] = useState([]);
   const [todos, setTodos] = useState([]);
@@ -19,10 +20,18 @@ const LiveMetrics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem("token");
+
+        const config = {
+          headers: {
+            Authorization: token
+          }
+        };
+
         const [habitRes, todoRes, noteRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/habits"),
-          axios.get("http://localhost:5000/api/todos"),
-          axios.get("http://localhost:5000/api/notes"),
+          axios.get("http://localhost:5000/api/habits", config),
+          axios.get("http://localhost:5000/api/todos", config),
+          axios.get("http://localhost:5000/api/notes", config)
         ]);
 
         setHabits(habitRes.data);

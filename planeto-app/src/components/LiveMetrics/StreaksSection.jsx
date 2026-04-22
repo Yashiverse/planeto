@@ -23,7 +23,6 @@ const StreakSection = ({ habits = [] }) => {
     return streak;
   };
 
-  // 👉 find best streak among all habits
   const bestStreak = habits.reduce((max, habit) => {
     const streak = calculateStreak(habit.dates);
     return Math.max(max, streak);
@@ -46,7 +45,7 @@ const StreakSection = ({ habits = [] }) => {
           ? "Nice start, keep going 🚀"
           : bestStreak < 15
           ? "You're building momentum 💪"
-          : "You're unstoppable 🔥🔥"}
+          : "You're unstoppable🔥"}
       </p>
 
     </div>

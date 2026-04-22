@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./pages.css";
+import "./auth.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -22,13 +22,13 @@ function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
         window.dispatchEvent(new Event("userChanged"));
         navigate("/");
       } else {
         alert(data.error || "Login failed");
       }
-
     } catch (err) {
       console.log(err);
       alert("Server error");
@@ -43,9 +43,20 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2 className="login-title">ON/BOARDING</h2>
+        <h2 className="login-title">PLANETO ACCESS</h2>
+        <p className="auth-subtitle">
+          Enter your credentials to launch your mission.
+        </p>
+
+        <div className="auth-social">
+          <button type="button" className="social-btn">Google</button>
+          <button type="button" className="social-btn">Apple</button>
+        </div>
+
+        <div className="auth-divider">OR SIGN IN WITH EMAIL</div>
 
         <form onSubmit={handleSubmit}>
+          <label className="field-label">Email</label>
 
           <input
             type="email"
@@ -55,7 +66,14 @@ function Login() {
             required
           />
 
-          {/* 🔥 PASSWORD WITH TOGGLE */}
+          <div className="auth-row">
+            <label className="field-label">Password</label>
+
+            <a href="#" className="auth-link-mini">
+              Forgot Password?
+            </a>
+          </div>
+
           <div className="password-wrapper">
             <input
               type={showPassword ? "text" : "password"}
@@ -69,16 +87,19 @@ function Login() {
               className="toggle-eye"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "🙈" : "🐵"}
+              {showPassword ? "👁" : "👁"}
             </span>
           </div>
 
-          <button type="submit">LAUNCH!</button>
-
+          <button type="submit">LAUNCH</button>
         </form>
 
+        <button type="button" className="auth-alt-btn">
+          Sign in with OTP
+        </button>
+
         <p className="register-text">
-          Don't have an account? <Link to="/register"> Register</Link>
+          Don&apos;t have an account? <Link to="/register">Register</Link>
         </p>
       </div>
     </div>
