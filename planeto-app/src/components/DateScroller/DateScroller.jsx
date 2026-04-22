@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import "./dateScroller.css";
+import "./DateScroller.css";
 
 const DateScroller = ({ selectedDate, setSelectedDate }) => {
   const containerRef = useRef(null);
 
-  // 🔥 generate MANY days (past + future)
   const days = Array.from({ length: 120 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - 60 + i);
@@ -19,7 +18,6 @@ const DateScroller = ({ selectedDate, setSelectedDate }) => {
     };
   });
 
-  // 🔥 auto scroll to selected date
   useEffect(() => {
     const index = days.findIndex((d) => d.iso === selectedDate);
     if (index !== -1 && containerRef.current) {
