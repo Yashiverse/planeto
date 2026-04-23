@@ -9,7 +9,7 @@ const History = () => {
   const [hoverData, setHoverData] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  const API = "http://localhost:5000/api/habits";
+  const API = "https://planeto.onrender.com/api/habits";
 
   // FETCH ALL (active + deleted)
   useEffect(() => {

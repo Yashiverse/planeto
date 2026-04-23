@@ -12,7 +12,7 @@ const NoteInput = ({ fetchNotes, selectedMood }) => {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:5000/api/notes",
+        "https://planeto.onrender.com/api/notes",
         {
           title,
           content,

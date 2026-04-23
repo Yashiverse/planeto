@@ -17,7 +17,7 @@ const Habit = () => {
     new Date().toISOString().split("T")[0]
   );
 
-  const API = "http://localhost:5000/api/habits";
+  const API = "https://planeto.onrender.com/api/habits";
 
   //  DAYS
   const getDays = () => {

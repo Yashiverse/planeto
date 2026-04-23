@@ -7,7 +7,7 @@ const NotesList = ({ notes = [], fetchNotes }) => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/notes/${id}`,
+      await axios.delete(`https://planeto.onrender.com/api/notes/${id}`,
         {headers: {Authorization: token}}
       );
       fetchNotes();

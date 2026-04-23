@@ -29,9 +29,9 @@ const LiveMetrics = () => {
         };
 
         const [habitRes, todoRes, noteRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/habits", config),
-          axios.get("http://localhost:5000/api/todos", config),
-          axios.get("http://localhost:5000/api/notes", config)
+          axios.get("https://planeto.onrender.com/api/habits", config),
+          axios.get("https://planeto.onrender.com/api/todos", config),
+          axios.get("https://planeto.onrender.com/api/notes", config)
         ]);
 
         setHabits(habitRes.data);

@@ -9,7 +9,7 @@ function Todo() {
 
   // GET all tasks on component mount
   useEffect(() => {
-    fetch("http://localhost:5000/api/todos")
+    fetch("https://planeto.onrender.com/api/todos")
       .then(res => res.json())
       .then(data => setTasks(data));
   }, []);
@@ -18,7 +18,7 @@ function Todo() {
     if (e) e.preventDefault();
     if (input.trim() === "") return;
 
-    const res = await fetch("http://localhost:5000/api/todos", {
+    const res = await fetch("https://planeto.onrender.com/api/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -33,7 +33,7 @@ function Todo() {
   };
 
   const deleteTask = async (id) => {
-    await fetch(`http://localhost:5000/api/todos/${id}`, {
+    await fetch(`/api/todos/${id}`, {
       method: "DELETE"
     });
 

@@ -16,7 +16,7 @@ const ProfileCard = ({ user }) => {
     formData.append("email", email);
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/upload", {
+      const res = await fetch("https://planeto.onrender.com/api/users/upload", {
         method: "POST",
         body: formData
       });
@@ -39,7 +39,7 @@ const ProfileCard = ({ user }) => {
         <img
           src={
             image
-              ? `http://localhost:5000${image}`
+              ? `https://planeto.onrender.com${image}`
               : defaultAvatar
           }
           alt="profile"
