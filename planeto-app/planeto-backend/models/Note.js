@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const noteSchema = new mongoose.Schema({
   title: String,
@@ -8,4 +8,4 @@ const noteSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+export default mongoose.model("Note", noteSchema);
