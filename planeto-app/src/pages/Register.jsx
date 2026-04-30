@@ -23,58 +23,34 @@ function Register() {
     }));
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const handleRegister = async () => {
+  try {
+    const res = await fetch("https://planeto.onrender.com/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        username,
+        email,
+        password,
+        dob
+      })
+    });
 
-    const {
-      name,
-      username,
-      email,
-      password,
-      confirmPassword,
-      accepted
-    } = formData;
+    const data = await res.json();
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
+    if (res.ok) {
+      alert("Registered successfully");
+    } else {
+      alert(data.error || "Register failed");
     }
-
-    if (!accepted) {
-      alert("Please accept terms first");
-      return;
-    }
-
-    try {
-      const res = await fetch("https://planeto.onrender.com/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name,
-          username,
-          email,
-          password,
-          dob: ""
-        })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        window.dispatchEvent(new Event("userChanged"));
-        navigate("/");
-      } else {
-        alert(data.error || "Registration failed");
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Server error");
-    }
-  };
+  } catch (err) {
+    console.log(err);
+    alert("Server error");
+  }
+};
 
   return (
     <div className="register-container">
