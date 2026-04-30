@@ -19,7 +19,15 @@ const Habit = () => {
 
   const API = "https://planeto.onrender.com/api/habits";
 
-  //  DAYS
+  const token = localStorage.getItem("token");
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
+
+  // DAYS
   const getDays = () => {
     const days = [];
     const base = new Date(selectedDate);
@@ -30,7 +38,7 @@ const Habit = () => {
 
       days.push({
         label: d.toLocaleDateString("en-US", { weekday: "short" }),
-        date: d.toLocaleDateString("en-CA"), // FIXED
+        date: d.toLocaleDateString("en-CA"),
         day: d.getDate(),
       });
     }
@@ -42,8 +50,10 @@ const Habit = () => {
 
   // ACTIVE HABITS
   useEffect(() => {
+    if (!token) return;
+
     axios
-      .get(`${API}?active=true`)
+      .get(`${API}?active=true`, config)
       .then((res) => setHabits(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -58,16 +68,17 @@ const Habit = () => {
       dates: {},
     };
 
-    axios.post(API, newHabit)
+    axios.post(API, newHabit, config)
       .then((res) => {
-        setHabits((prev) => [...prev, res.data]);})
+        setHabits((prev) => [...prev, res.data]);
+      })
       .catch((err) => console.log(err));
   };
 
   // SOFT DELETE
   const deleteHabit = (id) => {
     axios
-      .put(`${API}/${id}`, { isActive: false })
+      .put(`${API}/${id}`, { isActive: false }, config)
       .then(() => {
         setHabits((prev) => prev.filter((h) => h._id !== id));
       })
@@ -95,7 +106,7 @@ const Habit = () => {
     );
 
     axios
-      .put(`${API}/${habitId}`, updatedHabit)
+      .put(`${API}/${habitId}`, updatedHabit, config)
       .catch((err) => console.log(err));
   };
 
@@ -107,10 +118,11 @@ const Habit = () => {
     <div className="page-container">
       <div className="habit-page">
 
-        {/* HEADER */}
         <div className="habit-header">
           <h1 className="title">ORBIT</h1>
-          <button className="history-btn" onClick={() => navigate("/history")}>BLUEPRINT</button>
+          <button className="history-btn" onClick={() => navigate("/history")}>
+            BLUEPRINT
+          </button>
         </div>
 
         <AddHabit addHabit={addHabit} />

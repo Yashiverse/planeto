@@ -21,10 +21,11 @@ const LiveMetrics = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
+        if (!token) return;
 
         const config = {
           headers: {
-            Authorization: token
+            Authorization: `Bearer ${token}`
           }
         };
 

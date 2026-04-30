@@ -2,42 +2,59 @@ import React, { useState, useEffect } from "react";
 import "./pages.css";
 
 function Todo() {
-  const currentUser = JSON.parse(localStorage.getItem("user"));
-    console.log(currentUser._id);
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
 
-  // GET all tasks on component mount
+  const token = localStorage.getItem("token");
+
+  // GET all tasks
   useEffect(() => {
-    fetch("https://planeto.onrender.com/api/todos")
+    fetch("https://planeto.onrender.com/api/todos", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
-      .then(data => setTasks(data));
+      .then(data => setTasks(data))
+      .catch(err => console.log(err));
   }, []);
 
   const addTask = async (e) => {
     if (e) e.preventDefault();
     if (input.trim() === "") return;
 
-    const res = await fetch("https://planeto.onrender.com/api/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ text: input })
-    });
+    try {
+      const res = await fetch("https://planeto.onrender.com/api/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ text: input })
+      });
 
-    const newTask = await res.json();
+      const newTask = await res.json();
 
-    setTasks([...tasks, newTask]);
-    setInput("");
+      setTasks([...tasks, newTask]);
+      setInput("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deleteTask = async (id) => {
-    await fetch(`/api/todos/${id}`, {
-      method: "DELETE"
-    });
+    try {
+      await fetch(`https://planeto.onrender.com/api/todos/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-    setTasks(tasks.filter(task => task._id !== id));
+      setTasks(tasks.filter(task => task._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleKeyDown = (e) => {

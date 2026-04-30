@@ -12,10 +12,9 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-
         if (!token) return;
 
-        const res = await fetch("https://planeto.onrender.com/api/profile", {
+        const res = await fetch("https://planeto.onrender.com/auth/profile", {
           headers: {
             Authorization: `Bearer ${token}`
           }

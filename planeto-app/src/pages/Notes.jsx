@@ -13,6 +13,7 @@ const Notes = () => {
   const fetchNotes = async () => {
     try {
       const token = localStorage.getItem("token");
+      if (!token) return;
 
       const res = await axios.get(
         "https://planeto.onrender.com/api/notes",
@@ -36,7 +37,6 @@ const Notes = () => {
   return (
     <div className="notes-page">
       <div className="notes-wrapper">
-
         <div className="notes-layout">
 
           <div className="notes-left">
@@ -73,7 +73,6 @@ const Notes = () => {
           </div>
 
         </div>
-
       </div>
     </div>
   );
