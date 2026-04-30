@@ -23,35 +23,48 @@ function Register() {
     }));
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-  try {
-    const res = await fetch("https://planeto.onrender.com/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name,
-        username,
-        email,
-        password,
-        dob
-      })
-    });
 
-    const data = await res.json();
+    const { name, username, email, password, confirmPassword, accepted } = formData;
 
-    if (res.ok) {
-      alert("Registered successfully");
-    } else {
-      alert(data.error || "Register failed");
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
     }
-  } catch (err) {
-    console.log(err);
-    alert("Server error");
-  }
-};
+
+    if (!accepted) {
+      alert("Please accept terms");
+      return;
+    }
+
+    try {
+      const res = await fetch("https://planeto.onrender.com/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          username,
+          email,
+          password
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Registered successfully");
+        navigate("/login");
+      } else {
+        alert(data.error || "Register failed");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Server error");
+    }
+  };
 
   return (
     <div className="register-container">
@@ -67,7 +80,6 @@ function Register() {
 
         <form onSubmit={handleRegister}>
           <label className="field-label">Full Name</label>
-
           <input
             className="register-input"
             type="text"
@@ -79,7 +91,6 @@ function Register() {
           />
 
           <label className="field-label">Username</label>
-
           <input
             className="register-input"
             type="text"
@@ -91,7 +102,6 @@ function Register() {
           />
 
           <label className="field-label">Email</label>
-
           <input
             className="register-input"
             type="email"
@@ -103,7 +113,6 @@ function Register() {
           />
 
           <label className="field-label">Password</label>
-
           <input
             className="register-input"
             type="password"
@@ -115,7 +124,6 @@ function Register() {
           />
 
           <label className="field-label">Confirm Password</label>
-
           <input
             className="register-input"
             type="password"
@@ -133,9 +141,7 @@ function Register() {
               checked={formData.accepted}
               onChange={handleChange}
             />
-            <span>
-              I agree to the Terms of Service and Privacy Policy
-            </span>
+            <span>I agree to the Terms of Service and Privacy Policy</span>
           </label>
 
           <button className="register-button" type="submit">
