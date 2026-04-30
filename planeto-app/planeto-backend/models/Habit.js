@@ -6,7 +6,13 @@ const habitSchema = new mongoose.Schema({
 
   dates: {type: Object, of: Boolean,default: {}},
   isActive: {type: Boolean,default: true},
-  createdAt: {type: Date,default: Date.now}
+  createdAt: {type: Date,default: Date.now},
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  }
 });
+
 
 export default mongoose.model("Habit", habitSchema);

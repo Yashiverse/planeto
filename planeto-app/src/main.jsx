@@ -1,8 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import axios from "axios";
 import App from "./App.jsx";
 import "./index.css";
-import 'remixicon/fonts/remixicon.css'
+import "remixicon/fonts/remixicon.css";
+
+const token = localStorage.getItem("token");
+if (token) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

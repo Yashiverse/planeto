@@ -18,7 +18,7 @@ const Notes = () => {
         "https://planeto.onrender.com/api/notes",
         {
           headers: {
-            Authorization: token
+            Authorization: `Bearer ${token}`
           }
         }
       );

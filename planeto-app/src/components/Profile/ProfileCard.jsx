@@ -16,10 +16,15 @@ const ProfileCard = ({ user }) => {
     formData.append("email", email);
 
     try {
-      const res = await fetch("https://planeto.onrender.com/api/users/upload", {
-        method: "POST",
-        body: formData
-      });
+      const token = localStorage.getItem("token");
+
+const res = await fetch("https://planeto.onrender.com/auth/upload", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${token}`
+  },
+  body: formData
+});
       const text = await res.text();
       console.log(text);
       const data = JSON.parse(text);

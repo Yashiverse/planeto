@@ -11,15 +11,17 @@ const JWT_SECRET = "yashi_secret_key";
 
 // middleware for jwt authentication
 const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization;
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
+  if (!authHeader) {
     return res.status(401).json({ error: "No token" });
   }
 
+  const token = authHeader.split(" ")[1];
+
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.userId = decoded.userId;
+    req.userId = decoded.id;
     next();
   } catch (err) {
     res.status(401).json({ error: "Invalid token" });
@@ -39,18 +41,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Route for uploading profile picture
-router.post("/upload", upload.single("profilePic"), async (req, res) => {
+router.post("/upload", authMiddleware, upload.single("profilePic"), async (req, res) => {
   try {
-    const { email } = req.body;
-
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
     const imagePath = `/uploads/${req.file.filename}`;
 
-    const user = await User.findOneAndUpdate(
-      { email },
+    const user = await User.findByIdAndUpdate(
+      req.userId,
       { profilePic: imagePath },
       { new: true }
     ).select("-password");
@@ -81,7 +81,7 @@ router.post("/register", async (req, res) => {
     const safeUser = await User.findById(user._id).select("-password");
 
     const token = jwt.sign(
-      { userId: user._id },
+      { id: user._id },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -113,7 +113,7 @@ router.post("/login", async (req, res) => {
     const safeUser = await User.findById(user._id).select("-password");
 
     const token = jwt.sign(
-      { userId: user._id },
+      { id: user._id },
       JWT_SECRET,
       { expiresIn: "1h" }
     );

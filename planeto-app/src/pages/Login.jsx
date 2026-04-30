@@ -10,30 +10,31 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
-    try {
-      const res = await fetch("https://planeto.onrender.com/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      });
+  try {
+    const res = await fetch("https://planeto.onrender.com/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        window.dispatchEvent(new Event("userChanged"));
-        navigate("/");
-      } else {
-        alert(data.error || "Login failed");
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Server error");
+    if (res.ok) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      window.dispatchEvent(new Event("userChanged"));
+      navigate("/");
+    } else {
+      alert(data.error || "Login failed");
     }
-  };
+  } catch (err) {
+    console.log(err);
+    alert("Server error");
+  }
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();

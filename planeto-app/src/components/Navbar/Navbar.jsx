@@ -36,13 +36,10 @@ function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
     localStorage.removeItem("token");
-
-    setUser(null);
+    localStorage.removeItem("user");
 
     window.dispatchEvent(new Event("userChanged"));
-
     navigate("/login");
   };
 

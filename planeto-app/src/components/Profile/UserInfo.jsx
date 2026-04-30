@@ -36,10 +36,10 @@ const UserInfo = ({ user }) => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("https://planeto.onrender.com/api/users/update",
+      const res = await fetch("https://planeto.onrender.com/api/update",
         {
           method: "PUT",
-          headers: {"Content-Type": "application/json", Authorization: token},
+          headers: {"Content-Type": "application/json", Authorization: `Bearer ${token}`},
           body: JSON.stringify(formData)
         }
       );

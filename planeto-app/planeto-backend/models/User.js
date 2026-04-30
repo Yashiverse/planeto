@@ -1,15 +1,41 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  name: String,
-  username: String,
-  email: String,
-  password: String,
+  name: {
+    type: String,
+    required: true
+  },
+
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+
+  password: {
+    type: String,
+    required: true
+  },
+
   profilePic: {
     type: String,
     default: ""
   },
-  dob: String
+
+  dob: {
+    type: String
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 export default mongoose.model("User", userSchema);

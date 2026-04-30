@@ -21,7 +21,7 @@ const NoteInput = ({ fetchNotes, selectedMood }) => {
         },
         {
           headers: {
-            Authorization: token
+           Authorization: `Bearer ${token}`
           }
         }
       );
@@ -32,11 +32,11 @@ const NoteInput = ({ fetchNotes, selectedMood }) => {
       fetchNotes();
 
     } catch (err) {
-        console.log(err);
-        console.log(err.response);
-        console.log(err.response?.data);
-        alert(JSON.stringify(err.response?.data || err.message));
-      }
+      console.log(err);
+      console.log(err.response);
+      console.log(err.response?.data);
+      alert(JSON.stringify(err.response?.data || err.message));
+    }
   };
 
   return (

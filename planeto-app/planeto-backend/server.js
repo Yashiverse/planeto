@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -9,51 +9,29 @@ import noteRoutes from "./routes/noteRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 
 import dotenv from "dotenv";
-dotenv.config();  
+dotenv.config();
 
 const app = express();
 
-// middleware
 app.use(cors());
 app.use(express.json());
 
-//ai
-app.use("/api/ai", aiRoutes);
-
-// habits
-app.use("/api/habits", habitRoutes);
-
-// todos
-app.use("/api/todos", todoRoutes);
-
-// users 
-app.use("/api/users", userRoutes);
-
-// notes
-app.use("/api/notes", noteRoutes);
-
-// test route
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
-
-//upload profile pics
 app.use("/uploads", express.static("uploads"));
 
-//server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.use("/api/ai", aiRoutes);
+app.use("/api/habits", habitRoutes);
+app.use("/api/todos", todoRoutes);
+app.use("/api/notes", noteRoutes);
+app.use("/auth", userRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Backend is running");
 });
 
-//DB CONNECTION
 mongoose
-  .connect(
-    "mongodb+srv://yashiverse:planeto1234@cluster0.mmhx7wm.mongodb.net/planeto?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("MongoDB connected");
-
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT);
   })
   .catch((err) => console.log(err));
-

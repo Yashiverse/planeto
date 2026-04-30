@@ -15,9 +15,9 @@ const ProfilePage = () => {
 
         if (!token) return;
 
-        const res = await fetch("https://planeto.onrender.com/api/users/profile", {
+        const res = await fetch("https://planeto.onrender.com/api/profile", {
           headers: {
-            Authorization: token
+            Authorization: `Bearer ${token}`
           }
         });
 
