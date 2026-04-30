@@ -24,6 +24,7 @@ function Register() {
   };
 
   const handleRegister = async () => {
+    e.preventDefault();
   try {
     const res = await fetch("https://planeto.onrender.com/auth/register", {
       method: "POST",
