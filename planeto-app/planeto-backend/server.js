@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect("mongodb+srv://yashiverse:planeto12345@cluster0.mmhx7wm.mongodb.net/?appName=Cluster0")
   .then(() => {
     const PORT = process.env.PORT || 5000;
     app.listen(PORT);
